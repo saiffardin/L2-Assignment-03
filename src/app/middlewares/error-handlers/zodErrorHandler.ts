@@ -1,6 +1,5 @@
-import { type ErrorRequestHandler } from "express";
-import config from "../../config";
 import { ZodError } from "zod";
+import { type ErrorRequestHandler } from "express";
 
 export const zodErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;

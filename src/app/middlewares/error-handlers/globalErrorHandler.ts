@@ -1,5 +1,4 @@
 import { type ErrorRequestHandler } from "express";
-import config from "../../config";
 
 export const globalErrorHandler: ErrorRequestHandler = (
   err,
@@ -13,6 +12,6 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res.status(statusCode).json({
     success: false,
     message,
-    stack: config.NODE_ENV === "development" ? err.stack : undefined,
+    error: err,
   });
 };
