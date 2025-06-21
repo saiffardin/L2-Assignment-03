@@ -1,5 +1,5 @@
-import config from "../config";
 import { type ErrorRequestHandler } from "express";
+import config from "../../config";
 
 export const globalErrorHandler: ErrorRequestHandler = (err, _, res) => {
   const statusCode = err.statusCode || 500;

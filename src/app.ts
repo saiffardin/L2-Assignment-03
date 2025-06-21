@@ -1,30 +1,20 @@
-import express, {
-  type Request,
-  type Application,
-  type Response,
-} from "express";
+import express, { type Application } from "express";
 
 import {
   commonMiddlewares,
   globalErrorHandler,
   routeNotFoundHandler,
-} from "./middlewares";
+} from "./app/middlewares";
+import routes from "./app/routes";
 
 const app: Application = express();
 
 app.use(commonMiddlewares);
 
-// Initial Route
-app.get("/", (req: Request, res: Response) => {
-  // throw new Error("Server is Crashed 😵‍💫");
+app.use(routes);
 
-  res.send({ success: true, message: `Sever is Live ⚡` });
-});
+app.use(routeNotFoundHandler); // 404 Not Found handler (must be after all routes)
 
-// 404 Not Found handler (must be after all routes)
-app.use(routeNotFoundHandler);
-
-// Global Error handler (must be last)
-app.use(globalErrorHandler);
+app.use(globalErrorHandler); // Global Error handler (must be last)
 
 export default app;
