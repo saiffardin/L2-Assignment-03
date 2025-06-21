@@ -1,9 +1,15 @@
-import { Request, Response } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 import Mango from "./mango.model";
+import { mangoZodSchema } from "./mango.validation";
 
-export const createMango = async (req: Request, res: Response) => {
+export const createMango = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const data = await Mango.create(req.body);
+    const zodBody = await mangoZodSchema.parseAsync(req.body);
+    const data = await Mango.create(zodBody);
 
     res.send({
       success: true,
@@ -11,11 +17,7 @@ export const createMango = async (req: Request, res: Response) => {
       data,
     });
   } catch (error) {
-    res.send({
-      success: false,
-      message: "Error Hppend",
-      error,
-    });
+    next(error);
   }
 };
 
