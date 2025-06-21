@@ -4,16 +4,15 @@ import express, {
   type Response,
 } from "express";
 
-import cors from "cors";
+import {
+  commonMiddlewares,
+  globalErrorHandler,
+  routeNotFoundHandler,
+} from "./middlewares";
 
 const app: Application = express();
 
-const middleware = [
-  cors(),
-  express.json(),
-  express.urlencoded({ extended: true }),
-];
-app.use(middleware);
+app.use(commonMiddlewares);
 
 // Initial Route
 app.get("/", (req: Request, res: Response) => {
@@ -21,5 +20,11 @@ app.get("/", (req: Request, res: Response) => {
 
   res.send({ success: true, message: `Sever is Live ⚡` });
 });
+
+// 404 Not Found handler (must be after all routes)
+app.use(routeNotFoundHandler);
+
+// Global Error handler (must be last)
+app.use(globalErrorHandler);
 
 export default app;

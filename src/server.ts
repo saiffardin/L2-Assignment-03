@@ -10,7 +10,8 @@ async function server() {
       console.log(`Server Running on port ${5000} `);
     });
   } catch (error) {
-    console.error(`Server error ${server}`);
+    console.log("Failed to connect Mongoose.");
+    console.error(error);
   }
 }
 
