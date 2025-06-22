@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import {
   BookStaticMethods,
   IBook,
@@ -22,6 +22,11 @@ const bookSchema = new Schema<IBook, BookStaticMethods>(
   },
   { timestamps: true, versionKey: false }
 );
+
+bookSchema.post("findOne", function (doc, next) {
+  console.log(doc);
+  next();
+});
 
 bookSchema.static(
   "updateBookAvailability",

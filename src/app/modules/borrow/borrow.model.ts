@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { IBorrow } from "./borrow.interface";
 
 const borrowSchema = new Schema<IBorrow>(
@@ -24,6 +24,6 @@ const borrowSchema = new Schema<IBorrow>(
   }
 );
 
-const Borrow = models.Borrow || model<IBorrow>("Borrow", borrowSchema);
+const Borrow = model<IBorrow>("Borrow", borrowSchema);
 
 export default Borrow;
