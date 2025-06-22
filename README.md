@@ -10,6 +10,7 @@ This project consists of 7 REST APIs for managing books, authors, borrowing book
 - Consistent HTTP status codes
 - Error Handling
 - Modular and maintainable codebase
+- Keep credentials in environment file
 - Vercel Deployment
 
 ## Tech Stack
