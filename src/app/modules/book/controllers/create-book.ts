@@ -11,7 +11,7 @@ export const createBook = async (
     const zodBody = await bookValidation.parseAsync(req.body);
     const data = await Book.create(zodBody);
 
-    res.send({
+    res.status(201).send({
       success: true,
       message: "Book created successfully",
       data,
