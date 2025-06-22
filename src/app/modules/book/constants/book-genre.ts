@@ -6,3 +6,8 @@ export const BOOK_GENRE = [
   "BIOGRAPHY",
   "FANTASY",
 ] as const;
+
+export enum SORT {
+  ASC = "asc",
+  DESC = "desc",
+}
