@@ -32,10 +32,10 @@ This project consists of 7 REST APIs for managing books, authors, borrowing book
 
 
 ## Running Locally
-- install `nodeJS`, `mongoDB`, `typescript` in your PC.
+- install `nodeJS`, `mongoDB` server, `typescript` globally in your PC.
 - start mongoDB server
-- run `git clone https://github.com/yourusername/library-api.git`
-- run `cd library-api`
+- run `git clone https://github.com/saiffardin/L2-Assignment-03.git`
+- run `cd L2-Assignment-03`
 - run  `cp .env.local .env`
 - run `npm install`
 - run `npm run dev`
