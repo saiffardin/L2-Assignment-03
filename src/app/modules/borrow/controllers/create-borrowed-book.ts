@@ -28,7 +28,7 @@ export const createBorrowedBook = async (
 
     res.status(201).send({
       success: true,
-      message: "Borrowed Book created successfully",
+      message: "Book borrowed successfully",
       data: borrowedBook,
     });
   } catch (error) {
