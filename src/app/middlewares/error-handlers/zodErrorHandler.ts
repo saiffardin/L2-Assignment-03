@@ -2,8 +2,6 @@ import { ZodError } from "zod";
 import { type ErrorRequestHandler } from "express";
 
 export const zodErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-
   if (err instanceof ZodError) {
     let tempErr = {};
 
@@ -18,7 +16,7 @@ export const zodErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
       };
     });
 
-    res.status(statusCode).json({
+    res.status(400).json({
       success: false,
       message: "Validation failed",
 
