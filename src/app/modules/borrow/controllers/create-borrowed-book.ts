@@ -11,17 +11,20 @@ export const createBorrowedBook = async (
   try {
     const zodBody = await borrowValidation.parseAsync(req.body);
 
-    const book = zodBody.book;
+    const bookId = zodBody.book;
     const quantity = zodBody.quantity;
 
-    const currBook = await checkBookAvailability({ book, quantity, res });
+    const currBook = await checkBookAvailability({
+      bookId,
+      quantity,
+      res,
+    });
 
     const remainingBooks = currBook?.copies! - quantity;
 
     await Book.updateBookAvailability({
-      book,
+      bookId,
       remainingBooks,
-      res,
     });
 
     const borrowedBook = await Borrow.create(zodBody);
@@ -38,12 +41,12 @@ export const createBorrowedBook = async (
 
 const checkBookAvailability = async (values: {
   res: Response;
-  book: string;
+  bookId: string;
   quantity: number;
 }) => {
-  const { book, quantity, res } = values;
+  const { bookId, quantity, res } = values;
 
-  const currBook = await Book.findById(book);
+  const currBook = await Book.findById(bookId);
 
   if (!currBook) {
     res.status(404).send({
@@ -56,7 +59,7 @@ const checkBookAvailability = async (values: {
   if (currBook && currBook?.copies < quantity) {
     res.status(409).send({
       success: false,
-      message: "Not enough copies available. ",
+      message: "Not enough copies available.",
       error: {
         requested_quantity: quantity,
         remaining_quantity: currBook?.copies,

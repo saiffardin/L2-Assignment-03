@@ -28,17 +28,28 @@ bookSchema.post("findOne", function (doc, next) {
   next();
 });
 
+bookSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate() as IBook;
+
+  if (update && typeof update.copies === "number") {
+    update.available = update.copies > 0;
+    this.setUpdate(update); // update the update object
+  }
+
+  next();
+});
+
 bookSchema.static(
   "updateBookAvailability",
   async function (values: ParamsUpdateBookAvailability) {
-    const { book, remainingBooks, res } = values;
+    const { bookId, remainingBooks } = values;
 
     const newBody = {
       copies: remainingBooks,
       available: remainingBooks === 0 ? false : true,
     };
 
-    await Book.findByIdAndUpdate(book, newBody, {
+    await Book.findByIdAndUpdate(bookId, newBody, {
       new: true,
       runValidators: true,
     }).select("-__v");

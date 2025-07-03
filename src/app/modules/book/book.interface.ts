@@ -15,8 +15,7 @@ export interface IBook {
 }
 
 export interface ParamsUpdateBookAvailability {
-  res: Response;
-  book: string;
+  bookId: string;
   remainingBooks: number;
 }
 
